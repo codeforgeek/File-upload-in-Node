@@ -1,7 +1,7 @@
-var express=require("express");
-var multer  = require('multer');
-var app=express();
-var done=false;
+var express    =       require("express");
+var multer     =       require('multer');
+var app        =       express();
+var done       =       false;
 
 app.use(multer({ dest: './uploads/',
  rename: function (fieldname, filename) {
