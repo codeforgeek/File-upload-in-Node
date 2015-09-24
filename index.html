@@ -9,6 +9,7 @@
           method="post">
       <input type="file" name="userPhoto" />
       <input type="submit" value="Upload Image" name="submit">
+      <span id = "status"></span>
     </form>
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,6 +18,7 @@
   $(document).ready(function() {
 
      $('#uploadForm').submit(function() {
+		 $("#status").empty().text("File is uploading...");
 
         $(this).ajaxSubmit({
 
@@ -25,7 +27,8 @@
             },
 
             success: function(response) {
-		              console.log(response);
+					console.log(response)
+					$("#status").empty().text(response);
             }
 	});
 
