@@ -1,19 +1,15 @@
-var express    		=       require("express");
-var multer     		=       require('multer');
-var app        		=       express();
-var upload 			= 		multer({ dest: './uploads/'});
-
-app.use(multer({ dest: './uploads/',
-	rename: function (fieldname, filename) {
-		return filename+Date.now();
-	},
-	onFileUploadStart: function (file) {
-		console.log(file.originalname + ' is starting ...');
-	},
-	onFileUploadComplete: function (file) {
-		console.log(file.fieldname + ' uploaded to  ' + file.path)
-	}
-}));
+var express	=	require("express");
+var multer	=	require('multer');
+var app	=	express();
+var storage	=	multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+var upload = multer({ storage : storage}).single('userPhoto');
 
 app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
